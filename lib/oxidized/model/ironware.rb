@@ -16,7 +16,6 @@ class IronWare < Oxidized::Model
   end
 
   cmd 'show chassis' do |cfg|
-    cfg.gsub! "\xFF", '' # ugly hack - avoids JSON.dump utf-8 breakage on 1.9..
     comment cfg
   end
 
@@ -27,6 +26,7 @@ class IronWare < Oxidized::Model
 
   cfg :telnet, :ssh do
     post_login 'terminal length 0'
+    pre_logout 'exit'
     pre_logout 'exit'
   end
 
